@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  mariadb:
+    image: mariadb:5
+    ports:
+      - 3306:3306
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: talon
+      MYSQL_DATABASE: talon
+      MYSQL_USER: talon
+      MYSQL_PASSWORD: talon
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    links:
+      - mariadb:local
+    restart: always
+    environment:
+      - ADMINER_DESIGN=pepa-linha
+      - ADMINER_PLUGINS

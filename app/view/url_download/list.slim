@@ -1,0 +1,49 @@
+== slim 'partials/header'.to_sym
+
+/! begin::Body
+.m-grid__item.m-grid__item--fluid.m-grid.m-grid--ver-desktop.m-grid--desktop.m-body
+  == slim 'partials/left_nav'.to_sym
+
+  .m-grid__item.m-grid__item--fluid.m-wrapper
+    .m-subheader
+      .d-flex.align-items-center
+        .mr-auto
+          h3.m-subheader__title = 'Single URL Requests'
+
+    .m-content
+      .m-portlet.m-portlet--mobile
+        .m-portlet__head
+          .m-portlet__head-caption
+          .m-portlet__head-tools
+            ul.m-portlet__nav
+              li.m-portlet__nav-item
+                a.btn.btn-accent.m-btn.m-btn--custom.m-btn--pill.m-btn--icon.m-btn--air href="/url-download/new"
+                  span
+                    i.la.la-plus
+                    span = 'New Download Request'
+        .m-portlet__body
+          - unless urls.count == 0
+            .dataTables_wrapper.dt-bootstrap4.no-footer
+              .row
+                .col-sm-12
+                  table.table.table-striped-.table-bordered.table-hover.table-checkable.dataTable.no-footer.dtr-inline
+                    thead
+                      tr role="row"
+                        th scope="col" = 'URL'
+                        th scope="col" = 'Auth Type'
+                        th scope="col" = 'Status'
+                        th scope="col" = 'Created At'
+                        th scope="col" = 'Updated At'
+                    tbody
+                      - urls.each do |url|
+                        tr role="row"
+                          td = url.url
+                          td = url.auth_type
+                          td: span.m-badge.m-badge--wide class="#{url.status_badge_class}" = url.status
+                          td title="#{url.created_at}" = url.created_at.strftime("%a, %b %d %Y @ %H:%M")
+                          td title="#{url.updated_at}" = url.updated_at.strftime("%a, %b %d %Y @ %H:%M")
+          - else
+            p
+              | No URLs available to display
+
+/! end::Body

@@ -1,0 +1,51 @@
+== slim 'partials/header'.to_sym
+
+/! begin::Body
+.m-grid__item.m-grid__item--fluid.m-grid.m-grid--ver-desktop.m-grid--desktop.m-body
+  == slim 'partials/left_nav'.to_sym
+
+  .m-grid__item.m-grid__item--fluid.m-wrapper
+    .m-subheader
+      .d-flex.align-items-center
+        .mr-auto
+          h3.m-subheader__title.m-subheader__title--separator = 'Create a new URL Download Request'
+          ul.m-subheader__breadcrumbs.m-nav.m-nav--inline
+            li.m-nav__item.m-nav__item--home
+              a.m-nav__link.m-nav__link--icon href="/url-download"
+                i.m-nav__link-icon.la.la-home
+
+    form.m-form method="post" action="/url-download"
+      .m-content
+        .m-portlet
+          .m-portlet__head
+            .m-portlet__head-caption
+              .m-portlet__head-title
+                h3.m-portlet__head-text = 'Create a new single request'
+          .m-portlet__body
+            .m-form__group.form-group.row
+              .col-3
+                label for="auth_type" = 'Authentication Type'
+                select.form-control.custom-select id="auth_type" name="auth_type"
+                  option selected="selected" value="none" = 'No Authentication'
+                  option value="basic" = 'Basic Authentication'
+            .m-form__group.form-group.row
+              .col-12
+                fieldset class="basic" style="display: none"
+                  legend = 'Basic Authentication Input'
+                  .row
+                    .col-6
+                      label for="basicAuthUsername" = 'Username'
+                      input.form-control type="text" disabled="disabled" name="credentials[username]" id="basicAuthUsername"
+                  .row
+                    .col-6
+                      label for="basicAuthPassword" = 'Password'
+                      input.form-control type="text" disabled="disabled" name="credentials[password]" id="basicAuthPassword"
+
+            .m-form__group.form-group.row
+              .col-6
+                label for="downloadUrl" = 'URL to Download'
+                input type="text" class="form-control" name="url" id="downloadUrl" placeholder="http://"
+
+          .m-portlet__foot.m-portlet__foot--fit
+            .m-form__actions
+              button type="submit" class="btn btn-primary" = 'Submit Request'

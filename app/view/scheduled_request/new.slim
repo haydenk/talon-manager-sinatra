@@ -1,0 +1,52 @@
+== slim 'partials/header'.to_sym
+
+/! begin::Body
+.m-grid__item.m-grid__item--fluid.m-grid.m-grid--ver-desktop.m-grid--desktop.m-body
+  == slim 'partials/left_nav'.to_sym
+
+  .m-grid__item.m-grid__item--fluid.m-wrapper
+    .m-subheader
+      .d-flex.align-items-center
+        .mr-auto
+          h3.m-subheader__title.m-subheader__title--separator = 'Create a new Scheduled Request'
+          ul.m-subheader__breadcrumbs.m-nav.m-nav--inline
+            li.m-nav__item.m-nav__item--home
+              a.m-nav__link.m-nav__link--icon href="/scheduled-request"
+                i.m-nav__link-icon.la.la-home
+
+    .m-content
+      form method="post" action="/scheduled-request"
+        input type="hidden" name="step" value="#{current_step + 1}"
+        input type="hidden" name="auth_type" value="#{auth_type}"
+        - if current_step == 1
+          .form-group
+            label for="downloadUrl" = 'URL to Download'
+            .input-group
+              input type="text" class="form-control" name="url" id="downloadUrl" placeholder="http://"
+              .input-group-append
+                button type="submit" class="btn btn-primary" == 'Next&nbsp;&raquo;'
+        - if current_step == 2
+          .form-group
+            label for="baseUri" = 'Base URI'
+            .input-group
+              input type="text" class="form-control" name="base_uri" id="baseUri" value="#{base_uri}"
+            - if auth_type == 'basic'
+              label for="username" = 'Username'
+              .input-group
+                input type="text" class="form-control" name="credentials[username]" id="username"
+              label for="password" = 'Password'
+              .input-group
+                input type="password" class="form-control" name="credentials[password]" id="password"
+            br
+            h3 = 'Paths'
+            ul.list-group
+              li.list-group-item
+                label for="uri" = 'URI Path'
+                .input-group.mp-3
+                  .input-group-prepend
+                    span.input-group-text id="base_uri" = base_uri
+                  input type="text" class="form-control" name="paths[][uri]" id="uri" aria-describedby="base_uri" value="#{path}"
+            br
+            br
+            button type="submit" class="btn btn-primary" = 'Submit Request'
+/! end::Body

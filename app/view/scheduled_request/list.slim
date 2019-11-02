@@ -1,0 +1,42 @@
+== slim 'partials/header'.to_sym
+
+/! begin::Body
+.m-grid__item.m-grid__item--fluid.m-grid.m-grid--ver-desktop.m-grid--desktop.m-body
+  == slim 'partials/left_nav'.to_sym
+
+  .m-grid__item.m-grid__item--fluid.m-wrapper
+    .m-subheader
+      .d-flex.align-items-center
+        .mr-auto
+          h3.m-subheader__title = 'Scheduled Requests'
+
+    .m-content
+      .m-portlet.m-portlet--mobile
+        .m-portlet__head
+          .m-portlet__head-caption
+          .m-portlet__head-tools
+            ul.m-portlet__nav
+              li.m-portlet__nav-item
+                a.btn.btn-accent.m-btn.m-btn--custom.m-btn--pill.m-btn--icon.m-btn--air href="/scheduled-request/new"
+                  span
+                    i.la.la-plus
+                    span = 'New Scheduled Request'
+        .m-portlet__body
+          - unless no_items
+            table.table.table-striped-.table-bordered.table-hover.table-checkable.dataTable.no-footer.dtr-inline
+              thead
+                tr role="row"
+                  th scope="col" = 'ID'
+                  th scope="col" = 'Base URI'
+                  th scope="col" = 'Interval'
+              tbody
+                - scheduled_requests.each do |sr|
+                  tr role="row"
+                    td = sr.id
+                    td = sr.base_uri
+                    td = ' '
+          - else
+            p
+              | No Scheduled Requests available to display
+
+/! end::Body

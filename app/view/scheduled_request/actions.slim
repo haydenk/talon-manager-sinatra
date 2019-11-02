@@ -1,0 +1,6 @@
+.dropdown
+  button.btn.btn-secondary.dropdown-toggle type="button" id="actions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+    = 'Actions'
+  .dropdown-menu aria-labelledby="actions"
+    a href="/scheduled-request/new" class="dropdown-item" = 'Create New Scheduled Request'
+    a href="/scheduled-request/new?auth_type=basic" class="dropdown-item" = 'Create New Basic Authentication Request'
